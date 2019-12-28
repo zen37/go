@@ -1,0 +1,42 @@
+//https://play.golang.org/p/XAOVjI9NLci
+
+package main
+
+import "fmt"
+
+func main() {
+
+	fmt.Println("Example 1")
+	i := 1
+	for i <= 3 {
+		fmt.Println(i)
+		i = i + 1
+	}
+	blank_line()
+
+	fmt.Println("Example 2")
+	for j := 6; j <= 9; j++ {
+		fmt.Println(j)
+	}
+	blank_line()
+
+	fmt.Println("Example 3")
+	for {
+		fmt.Println("break out of loop")
+		break
+	}
+	blank_line()
+
+	fmt.Println("Example 2")
+	for n := 1; n <= 9; n++ {
+		if n%3 == 0 {
+			continue
+		}
+		fmt.Println(n)
+	}
+	blank_line()
+}
+
+func blank_line() {
+	fmt.Println()
+}
