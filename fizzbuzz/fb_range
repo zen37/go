@@ -1,0 +1,36 @@
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+const (
+	multiple_of_3_and_5 string = "FizzBuzz"
+	multiple_of_3       string = "Fizz"
+	multiple_of_5       string = "Buzz"
+)
+
+func main() {
+
+	start := time.Now()
+
+	c := make([]int, 100000)
+
+	for i := range c {
+		d := i + 1
+		threes := d%3 == 0
+		fives := d%5 == 0
+		if threes && fives {
+	//		fmt.Println(multiple_of_3_and_5)
+		} else if threes {
+	//		fmt.Println(multiple_of_3)
+		} else if fives {
+	//		fmt.Println(multiple_of_5)
+		} else {
+	//		fmt.Println(d)
+		}
+	}
+
+	fmt.Println("Execution time:", time.Since(start))
+}
