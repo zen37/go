@@ -1,0 +1,61 @@
+//https://play.golang.org/p/LRMcpVBsbrt
+
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func main() {
+
+	// basic switch
+	i := 20
+
+	switch i {
+	case 1:
+		fmt.Println("I am one")
+	case 2:
+		fmt.Println("I am two")
+
+	default:
+		fmt.Println("I am neither one nor two")
+	}
+
+	t := time.Now()
+
+	/*switch without an expression is an alternate way to express if/else logic.
+	  Here we also show how the case expressions can be non-constants.*/
+	switch {
+
+	case t.Hour() < 12:
+		fmt.Println("It is before noon")
+	default:
+		fmt.Println("It is after noon")
+	}
+
+	//A type switch compares types instead of values.
+	//You can use this to discover the type of an interface valu
+	typeOf := func(i interface{}) {
+
+		switch t := i.(type) {
+
+		case bool:
+			fmt.Println("I am bool")
+		case int:
+			fmt.Println("I am int")
+		case string:
+			fmt.Println("I am string")
+		default:
+			fmt.Println("Don't know this type", t)
+
+		}
+
+	}
+
+	typeOf("42.56")
+	typeOf(42.56)
+	typeOf(false)
+	typeOf(42)
+
+}
