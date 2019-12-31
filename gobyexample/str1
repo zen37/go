@@ -1,0 +1,18 @@
+/* 
+strings are immutable
+strings in Go are aliases for bytes
+it’s more efficient to send strings to other applications as bytes
+*/
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	s := "my string"
+	b := []byte(s)
+	fmt.Printf("%v, %T", b, b)
+}
