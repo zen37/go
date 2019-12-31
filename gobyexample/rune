@@ -1,0 +1,33 @@
+/*
+https://yourbasic.org/golang/rune/
+The rune type is an alias for int32, and is used to emphasize than an integer represents a code point.
+
+ASCII defines 128 characters, identified by the code points 0–127.
+It covers English letters, Latin numbers, and a few other characters.
+
+Unicode, which is a superset of ASCII, defines a codespace of 1,114,112 code points.
+Unicode version 10.0 covers 139 modern and historic scripts as well as multiple symbol sets.
+
+https://play.golang.org/p/mv56zeJr5Wd
+*/
+
+package main
+
+import (
+	"fmt"
+	//"unicode/utf8"
+)
+
+func main() {
+
+	var r rune
+	r = 'c'
+	fmt.Printf("%v, %T\n", r, r)
+
+	fmt.Println("café as bytes:", []byte("café"))
+	fmt.Println("café as runes:", []rune("café"))
+
+	fmt.Println(string(195))
+	fmt.Println(string(169))
+	fmt.Println(string(233))
+}
