@@ -1,0 +1,47 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+const (
+	_  = iota
+	KB = 1 << (10 * iota)
+	MB
+	GB
+  TB
+)
+
+const file string = "<file path>"
+
+func main() {
+
+	var filesize float64
+
+	s, err := getFileSize(file)
+	check(err)
+
+	if err == nil {
+		filesize = float64(s);
+		fmt.Print(file, " : ")
+		fmt.Printf("%.2fMB\n", filesize/MB)
+	}
+
+}
+
+func getFileSize(filepath string) (int64, error) {
+	fi, err := os.Stat(filepath)
+	if err != nil {
+		return 0, err
+	}
+	// get the size
+	return fi.Size(), nil
+}
+
+func check(e error) {
+	if e != nil {
+		fmt.Println("ERR:", e)
+		// panic(e)
+	}
+}
