@@ -1,0 +1,29 @@
+//https://play.golang.org/p/_cu-nrprAub
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+func main() {
+
+	err := filepath.Walk("/Users", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
+			return err
+		}
+		if !info.IsDir() {
+			fmt.Printf("file: %v\n", info.Name())
+		} else {
+			fmt.Printf("dir: %q\n", path)			
+		}
+		return nil
+	})
+	if err != nil {
+		fmt.Printf("error: %v\n", err)
+		return
+	}
+}
