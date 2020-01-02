@@ -1,0 +1,27 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+func main() {
+
+	err := filepath.Walk("/", func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Printf("Prevent panic by handling failure accessing a path %q: %v\n", path, err)
+			return nil
+		}
+		if !info.IsDir() {
+			fmt.Printf("file: %v\n", info.Name())
+		} else {
+			fmt.Printf("dir: %q\n", path)			
+		}
+		return nil
+	})
+	if err != nil {
+		fmt.Printf("error: %v\n", err)
+		//return
+	}
+}
