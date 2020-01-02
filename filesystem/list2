@@ -1,0 +1,65 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+const (
+	_  = iota
+	KB = 1 << (10 * iota)
+	MB
+	GB
+)
+
+const thresholdFileSize = 100000000
+const dir string = "/" //"/Users/zen" //"/Users/zen/Documents"
+
+func main() {
+
+	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
+			return nil //err, program stops if error is encountered, 
+			           //for example ERR: open /Users/zen/.Trash: operation not permitted
+		}
+		if !info.IsDir() {
+			getFormattedFileSize(path, info);
+		} else {
+			// fmt.Printf("dir: %q\n", path)			
+		}
+		return nil
+	})
+
+	check(err)
+
+}
+
+func getFileSize(filepath string) (int64, error) {
+	fi, err := os.Stat(filepath)
+	if err != nil {
+		return 0, err
+	}
+	// get the size
+	return fi.Size(), nil
+}
+
+func getFormattedFileSize(path string, info os.FileInfo) {
+
+		size := info.Size();
+		//file := info.Name(); 
+	    
+		if size >  thresholdFileSize  {
+			filesize := float64(size);
+			fmt.Print(path, " : ")
+			fmt.Printf("%.2fMB\n", filesize/MB)
+		}
+	}
+
+func check(e error) {
+	if e != nil {
+		fmt.Println("ERR:", e)
+		// panic(e)
+	}
+}
