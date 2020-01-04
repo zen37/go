@@ -1,0 +1,24 @@
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func main() {
+
+	//argWithProg := os.Args
+	//argWithoutProg := os.Args[1:]
+	arg := os.Args[1]
+
+	//fmt.Println(argWithProg)
+	//fmt.Println(argWithoutProg)
+
+	switch arg {
+	case "1":
+		fmt.Println("1 was the program's argument")
+	case "2":
+		fmt.Println("2 was the argument")
+	}
+
+}
