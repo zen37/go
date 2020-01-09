@@ -1,0 +1,19 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strconv"
+	"time"
+)
+
+func main() {
+	start := time.Now()
+	n, _ := strconv.Atoi(os.Args[1])
+	for i := 0; i < n; i++ {
+		os.Stdout.Write([]byte("hello world"))
+		//	fmt.Println("hello world")
+	}
+	fmt.Println()
+	fmt.Println(time.Since(start))
+}
