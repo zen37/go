@@ -1,0 +1,24 @@
+package main
+
+import (
+	"log"
+	"os"
+	"time"
+)
+
+func main() {
+	start := time.Now()
+	// If the file doesn't exist, create it, or append to the file
+	f, err := os.OpenFile("log.dat", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	d := []byte(start.String() + " # " + time.Since(start).String() + "\n")
+	if _, err := f.Write([]byte(d)); err != nil {
+		f.Close() // ignore error; Write error takes precedence
+		log.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		log.Fatal(err)
+	}
+}
