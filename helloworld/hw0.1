@@ -10,24 +10,28 @@ import (
 
 func main() {
 
+	const file = "helloworld_performance.log"
+
 	start := time.Now()
 	n, _ := strconv.Atoi(os.Args[1])
 	for i := 0; i < n; i++ {
 		fmt.Print("hello world")
 	}
-	//fmt.Println()
-	//fmt.Println(time.Since(start))
 	end := time.Since(start)
-	Log(n, end)
+
+	program := os.Args[0]
+	info := program + " # " + strconv.Itoa(n) + " " + "loops" + " # " + end.String()
+
+	Log(file, info)
 }
 
-func Log(loops int, duration time.Duration) {
+func Log(file string, info string) {
 
-	f, err := os.OpenFile("performance.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	f, err := os.OpenFile(file, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	d := []byte(strconv.Itoa(loops) + " # " + duration.String() + "\n")
+	d := []byte(info + "\n")
 	if _, err := f.Write([]byte(d)); err != nil {
 		f.Close() // ignore error; Write error takes precedence
 		log.Fatal(err)
@@ -35,5 +39,4 @@ func Log(loops int, duration time.Duration) {
 	if err := f.Close(); err != nil {
 		log.Fatal(err)
 	}
-
 }
