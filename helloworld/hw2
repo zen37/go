@@ -2,25 +2,47 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 	"time"
+	"log"
 )
+
+const file = "perf.log"
+const sep = " # "
 
 func main() {
 
 	start := time.Now()
 	n, _ := strconv.Atoi(os.Args[1])
 	w := bufio.NewWriter(os.Stdout)
-	defer print(start)
+	//defer print(start)
 	defer w.Flush()
+
 	for i := 0; i < n; i++ {
 		w.Write([]byte("hello world"))
 	}
+	end := time.Since(start)
+
+	program := os.Args[0]
+	info := program + sep + "bufio.NewWriter(os.Stdout)" + sep + strconv.Itoa(n) + " " + "loops" + sep + end.String()
+
+	Log(file, info)
 }
 
-func print(start time.Time) {
-	fmt.Println()
-	fmt.Println(time.Since(start))
+
+func Log(file string, info string) {
+
+	f, err := os.OpenFile(file, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+	d := []byte(info + "\n")
+	if _, err := f.Write([]byte(d)); err != nil {
+		f.Close() // ignore error; Write error takes precedence
+		log.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		log.Fatal(err)
+	}
 }
