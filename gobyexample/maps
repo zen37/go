@@ -1,0 +1,31 @@
+// https://play.golang.org/p/4K3f-59Px4J
+
+// _Maps_ are Go's built-in [associative data type](http://en.wikipedia.org/wiki/Associative_array)
+// (sometimes called _hashes_ or _dicts_ in other languages).
+
+package main
+
+import "fmt"
+
+func main() {
+
+	m := map[string]int{
+		"CA": 122222123,
+		"WA": 746742423,
+	}
+
+	fmt.Println(m)
+
+	delete(m, "WA")
+	fmt.Println("map:", m)
+
+	n := make(map[string]bool)
+
+	fmt.Println("n", n)
+
+	n["a"] = true
+	n["b"] = false
+
+	fmt.Println(n)
+
+}
