@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
-	"flag"
 )
 
 const (
@@ -14,38 +14,36 @@ const (
 	GB
 )
 
-const thresholdFileSize = 1000000000
-const dir string =  "/" // "/Users/zen" //"/Users/zen/Documents"-
+const dir string = "/" 
 
 var err_show *bool
+var size *int
+
+var thresholdFileSize int64
 
 func init() {
 
 	err_show = flag.Bool("err", false, "this is a boolean for printing or not errors. default is false")
+	size = flag.Int("size", 100000000, "the minimum file size")
 
 	flag.Parse()
+
+	thresholdFileSize = int64(*size)
 }
 
 func main() {
 
-	if *err_show {
-		fmt.Println("errors are printed")
-	} else {
-		fmt.Println("errors are not printed")
-	}
-
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			if *err_show {
-				fmt.Printf("Error %q: %v\n", path, err)
+				fmt.Printf("Path/Error %q: %v\n", path, err)
 			}
-			return nil //err, program stops if error is encountered, 
-			           //for example ERR: open /Users/zen/.Trash: operation not permitted
+			return nil //err, program stops if error is encountered, and we don't want this
 		}
 		if !info.IsDir() {
-			getFormattedFileSize(path, info);
+			getFormattedFileSize(path, info)
 		} else {
-			// fmt.Printf("dir: %q\n", path)			
+			// fmt.Printf("dir: %q\n", path)
 		}
 		return nil
 	})
@@ -59,21 +57,19 @@ func getFileSize(filepath string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	// get the size
 	return fi.Size(), nil
 }
 
 func getFormattedFileSize(path string, info os.FileInfo) {
 
-		size := info.Size();
-		//file := info.Name(); 
-	    
-		if size >  thresholdFileSize  {
-			filesize := float64(size);
-			fmt.Print(path, " : ")
-			fmt.Printf("%.2fMB\n", filesize/MB)
-		}
+	size := info.Size()
+
+	if size > thresholdFileSize {
+		filesize := float64(size)
+		fmt.Print(path, " : ")
+		fmt.Printf("%.2fMB\n", filesize/MB)
 	}
+}
 
 func check(e error) {
 	if e != nil {
