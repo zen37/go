@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sort" 
 )
 
 const (
@@ -20,6 +21,13 @@ var err_show *bool
 var size *int
 
 var thresholdFileSize int64
+
+type file struct {
+	name string
+	size float64
+}
+
+var files []file
 
 func init() {
 
@@ -50,9 +58,13 @@ func main() {
 
 	check(err)
 
+	sort.Slice(files, func(i, j int) bool { return files[i].size < files[j].size })
+	print()
+
 }
 
 func getFileSize(filepath string) (int64, error) {
+
 	fi, err := os.Stat(filepath)
 	if err != nil {
 		return 0, err
@@ -65,10 +77,17 @@ func getFormattedFileSize(path string, info os.FileInfo) {
 	size := info.Size()
 
 	if size > thresholdFileSize {
-		filesize := float64(size)
-		fmt.Print(path, " : ")
-		fmt.Printf("%.2fMB\n", filesize/MB)
+		filesize := float64((size)/MB)
+		files = append(files, file{name: path, size:filesize})
 	}
+}
+
+func print(){
+
+	for _, elem := range files{
+		fmt.Println(elem.name, elem.size)
+	}
+
 }
 
 func check(e error) {
