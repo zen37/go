@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"sort" 
+	"sort"
 )
 
 const (
@@ -15,7 +15,7 @@ const (
 	GB
 )
 
-const dir string = "/" 
+const dir string = "/"
 
 var err_show *bool
 var size *int
@@ -28,6 +28,15 @@ type file struct {
 }
 
 var files []file
+
+func new_file(name string, size float64) file {
+
+	var f file
+
+	f = file{name: name, size: size}
+	return f
+
+}
 
 func init() {
 
@@ -77,14 +86,17 @@ func getFormattedFileSize(path string, info os.FileInfo) {
 	size := info.Size()
 
 	if size > thresholdFileSize {
-		filesize := float64((size)/MB)
-		files = append(files, file{name: path, size:filesize})
+		filesize := float64((size) / MB)
+
+		files = append(files, new_file(path, filesize))
 	}
 }
 
-func print(){
+func print() {
+	//	fmt.Print(path, " : ")
+	//	fmt.Printf("%.2fMB\n", filesize/MB)
 
-	for _, elem := range files{
+	for _, elem := range files {
 		fmt.Println(elem.name, elem.size)
 	}
 
