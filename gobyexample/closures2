@@ -1,0 +1,42 @@
+// https://play.golang.org/p/3NOi7kTOlup
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+const sentence = "The quick brown fox jumps over the lazy dog"
+
+// split splits `s` by `sep` separator and returns an iterator which walks over
+//the tokens of `s` using a closure.
+func split(s, sep string) func() (token string, ok bool) {
+
+	// closure will use this context of tokens, last and total variables.
+	tokens, last := strings.Split(s, sep), 0
+	fmt.Println(tokens, " - ", len(tokens))
+
+	// returning an anonymous func
+	return func() (string, bool) {
+		if len(tokens) == last {
+			fmt.Println("bool is false")
+			return "", false
+		}
+
+		// advance the iterator
+		last = last + 1
+
+		return tokens[last-1], true
+	}
+}
+
+func main() {
+
+	iter := split(sentence, " ")
+
+	for token, ok := iter(); ok; token, ok = iter() {
+		fmt.Println(token, " - ", ok)
+	}
+
+}
