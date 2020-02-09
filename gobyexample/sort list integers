@@ -5,11 +5,21 @@ import (
 	"math/rand"
 	"sort"
 	"time"
+	"flag"
 )
 
 var arr []int
+var algo *string
 
 const size = 11
+
+func init() {
+	
+	algo = flag.String("algo", "s", "algorithm used for processing")
+
+	flag.Parse()
+
+}
 
 func create_arr() {
 
@@ -18,8 +28,8 @@ func create_arr() {
 	}
 
 	//arr = []int{4, 3, 2, 0}
-	fmt.Println("original start: ", arr)
-	fmt.Println()
+//	fmt.Println("original start: ", arr)
+//	fmt.Println()
 
 }
 
@@ -27,9 +37,11 @@ func sort_standard(arr []int) {
 
 	fmt.Println("sort.Slice before: ", arr)
 
-	s1 := time.Now()
+	start:= time.Now()
+
 	sort.Slice(arr, func(i, j int) bool { return arr[i] < arr[j] })
-	fmt.Println("Standard sort.Slice execution time: ", time.Since(s1))
+
+	fmt.Println("Standard sort.Slice execution time: ", time.Since(start).Nanoseconds(),"ns")
 	
 	fmt.Println("sort.Slice after: ", arr)
 	fmt.Println()
@@ -42,7 +54,8 @@ func iter(arr []int) {
 
 	fmt.Println("iteration before: ", arr)
 
-	s2 := time.Now()
+	start := time.Now()
+
 	n := len(arr)
 
 	for j := 1; j <= n-1; j++ {
@@ -58,7 +71,7 @@ func iter(arr []int) {
 
 		}
 	}
-	fmt.Println("Iteration execution time: ", time.Since(s2))
+	fmt.Println("Iteration execution time: ", time.Since(start).Nanoseconds(),"ns")
 
 	fmt.Println("iteration after: ", arr)
 	//fmt.Println()
@@ -77,9 +90,14 @@ func main() {
 	copy(arr1, arr)
 	copy(arr2, arr)
 
-	iter(arr1)
-	//sort_standard(arr2)
-
-	fmt.Println("original end: ", arr)
-
+	switch *algo {
+	case "c": //custom
+		iter(arr1)
+	case "s": //standard
+		sort_standard(arr2)
+	case "b": //both
+		sort_standard(arr2)	
+		iter(arr1)	
+	}
+//	fmt.Println("original end: ", arr)
 }
