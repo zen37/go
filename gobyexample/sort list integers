@@ -6,18 +6,32 @@ import (
 	"sort"
 	"time"
 	"flag"
+	"strconv"
+	"log"
 )
 
 var arr []int
 var algo *string
+var size int
 
-const size = 11
 
 func init() {
 	
-	algo = flag.String("algo", "s", "algorithm used for processing")
+	var err error
+	const default_size = 11 
 
+	algo = flag.String("algo", "s", "algorithm used for processing")
 	flag.Parse()
+
+	if len(flag.Args()) == 0 {
+		size = default_size
+	} else {
+		size, err = strconv.Atoi(flag.Arg(0))
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
 
 }
 
@@ -26,10 +40,6 @@ func create_arr() {
 	for i := 0; i < size; i++ {
 		arr = append(arr, rand.Intn(100))
 	}
-
-	//arr = []int{4, 3, 2, 0}
-//	fmt.Println("original start: ", arr)
-//	fmt.Println()
 
 }
 
@@ -96,8 +106,8 @@ func main() {
 	case "s": //standard
 		sort_standard(arr2)
 	case "b": //both
-		sort_standard(arr2)	
 		iter(arr1)	
+		sort_standard(arr2)	
 	}
 //	fmt.Println("original end: ", arr)
 }
