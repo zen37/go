@@ -1,0 +1,26 @@
+// https://play.golang.org/p/CkGKZCxd5Ez
+package main
+
+import (
+	"fmt"
+)
+
+type square struct {
+	side float64
+}
+
+func (s square) perim() float64 {
+	return 4 * s.side
+}
+
+func (s square) area() float64 {
+	return s.side * s.side
+}
+
+func main() {
+	
+	s := square{side: 1.1}
+	fmt.Println("perimeter: ", s.perim())
+	fmt.Println("area: ", s.area())
+
+}
