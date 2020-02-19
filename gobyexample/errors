@@ -1,0 +1,28 @@
+//https://play.golang.org/p/1k90OK28cvz
+
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+func f1(arg int) (int, error) {
+
+	if arg == 42 {
+		return -1, errors.New("can't work with 42")
+	}
+
+	return arg, nil
+}
+
+func main() {
+	fmt.Println("Hello, playground")
+//	f1(42)
+
+	if result, e := f1(42); e != nil {
+		fmt.Println("f1 failed:", e)
+	} else {
+		fmt.Println("f1 worked:", result)
+	}
+}
