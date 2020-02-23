@@ -1,0 +1,69 @@
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"sort"
+	"time"
+	"flag"
+	"strconv"
+	"log"
+)
+
+var arr []int
+var algo *string
+var size int
+
+func init() {
+	
+	var err error
+	const default_size = 1000 
+
+	algo = flag.String("algo", "s", "algorithm used for processing")
+	flag.Parse()
+
+//	fmt.Println("flag.Arg(0): ", flag.Arg(0))
+
+	if len(flag.Args()) == 0 {
+		size = default_size
+	} else {
+		size, err = strconv.Atoi(flag.Arg(0))
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+
+
+}
+
+func create_arr() {
+
+	for i := 0; i < size; i++ {
+		arr = append(arr, rand.Intn(100000))
+	}
+
+}
+
+
+func sorting(arr []int) {
+
+	//fmt.Println("sort.Slice before: ", arr)
+
+	start:= time.Now()
+
+	sort.Ints(arr)
+
+	fmt.Println("sort.Ints execution time: ", time.Since(start).Nanoseconds(),"ns")
+	
+	//fmt.Println("sort.Slice after: ", arr)
+	fmt.Println("arr[0], arr[len(arr)-1])", arr[0], arr[len(arr)-1])
+
+}
+
+
+func main() {
+
+	create_arr()
+	sorting(arr)
+
+}
