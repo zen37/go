@@ -1,0 +1,35 @@
+//https://www.calhoun.io/concatenating-and-building-strings-in-go/
+
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+func main() {
+
+	// Here we use `range` to sum the numbers in a slice.
+	// Arrays work like this too.
+	nums := []string{"A", "b", "C"}
+
+	var ret string
+	for _, str := range nums {
+		ret += str
+	}
+	fmt.Println("sum:", ret)
+
+/*
+While this works perfectly fine for a simple program, it is a little inefficient. 
+Every time we call ret += str a brand new string needs to be allocated in memory. This happens because strings in Go are immutable, 
+so if we want to change a string or add contents to it we need to create an entirely new string. 
+To avoid creating new strings as we build our final string, we can now use the strings.Builder type along with its WriteString method.
+*/
+	var sb strings.Builder
+	for _, ret := range nums {
+		sb.WriteString(ret)
+	}
+
+	fmt.Println("sum:", sb.String())
+
+}
