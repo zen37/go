@@ -1,0 +1,33 @@
+//https://play.golang.org/p/FWsbBng5TZ1
+
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+func main() {
+
+	var a, b int
+
+	a = 40
+
+	b = 5
+
+	fmt.Println("Before a=", a, "b=", b)
+
+	a, b = b, a
+
+	fmt.Println("After a=", a, "b=", b)
+
+	s := []int{1, 22}
+
+	fmt.Printf("Before swap: %v\n", s)
+
+	swap := reflect.Swapper(s)
+
+	swap(0, 1)
+
+	fmt.Printf("After swap: %v\n", s)
+}
