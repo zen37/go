@@ -8,6 +8,11 @@ import (
 	"strings"
 )
 
+const (
+	err_open  string = "Failed to open the CSV file: %s\n"
+	err_parse string = "Failed to parse the provided CSV file."
+)
+
 type problem struct {
 	q string
 	a string
@@ -19,14 +24,14 @@ func main() {
 
 	file, err := os.Open(*csvFilename)
 	if err != nil {
-		exit(fmt.Sprintf("Failed to open the CSV file: %s\n", *csvFilename))
+		exit(fmt.Sprintf(err_open, *csvFilename))
 	}
 
 	r := csv.NewReader(file)
 	lines, err := r.ReadAll()
 	if err != nil {
 		fmt.Println(err.Error())
-		exit("Failed to parse the provided CSV file.")
+		exit(err_parse)
 	}
 	problems := parseLines(lines)
 
