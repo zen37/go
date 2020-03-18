@@ -1,6 +1,6 @@
 /*
 https://yourbasic.org/golang/rune/
-The rune type is an alias for int32, and is used to emphasize than an integer represents a code point.
+The rune type is an alias for int32, and is used to emphasize that an integer represents a code point.
 
 ASCII defines 128 characters, identified by the code points 0–127.
 It covers English letters, Latin numbers, and a few other characters.
@@ -8,7 +8,7 @@ It covers English letters, Latin numbers, and a few other characters.
 Unicode, which is a superset of ASCII, defines a codespace of 1,114,112 code points.
 Unicode version 10.0 covers 139 modern and historic scripts as well as multiple symbol sets.
 
-https://play.golang.org/p/mv56zeJr5Wd
+https://play.golang.org/p/MNH0DPBxNhZ
 */
 
 package main
@@ -24,9 +24,25 @@ func main() {
 	r = 'c'
 	fmt.Printf("%v, %T\n", r, r)
 
-	fmt.Println("café as bytes:", []byte("café"))
-	fmt.Println("café as runes:", []rune("café"))
+	s := "café"
+	sr := []int32(s) // []rune(s)
 
+	fmt.Println("café as bytes:", []byte(s))
+	fmt.Println("café as runes:", []rune(s))
+
+	fmt.Println()
+
+	for i := 0; i <= len(s)-1; i++ {
+		fmt.Printf("%c\n", s[i])
+	}
+
+	fmt.Println()
+
+	for i := 0; i <= len(sr)-1; i++ {
+		fmt.Printf("%c\n", sr[i])
+	}
+
+	fmt.Println()
 	fmt.Println(string(195))
 	fmt.Println(string(169))
 	fmt.Println(string(233))
