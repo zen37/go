@@ -1,0 +1,30 @@
+
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	m := make(map[string]string)
+
+	m["one"] = "1"
+	m["two"] = "2"
+	//m["three"] = ""
+
+	fmt.Println(m)
+
+	if _, exists := m["three"]; !exists {
+		fmt.Println("m[three] does not exist")
+	}
+
+	x := map[string]string{"one": "a", "two": "", "three": "c"}
+
+	fmt.Println(x)
+
+	if _, ok := x["two"]; !ok {
+		fmt.Println("no entry")
+	}
+}
