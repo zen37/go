@@ -1,3 +1,5 @@
+//https://play.golang.org/p/GbwzcTUagoj
+
 package main
 
 import (
@@ -10,8 +12,7 @@ func main() {
 	c := make(chan string)
 	go count("sheep", c)
 
-	for {
-		msg := <-c
+	for msg := range c {
 		fmt.Println(msg)
 	}
 }
