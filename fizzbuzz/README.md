@@ -3,5 +3,5 @@
 
 Performance (milliseconds average) in performance fizzbuzz.xlsx.
 
-
+fb_switch_without_expression is the fastest
 
