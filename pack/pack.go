@@ -5,6 +5,6 @@ import (
 )
 
 //this package only does this
-func Hello() {
+func HelloXYZ() {
 	fmt.Println("Hello Worlsd \ Hallo Welt! I'm a package.")
 }
