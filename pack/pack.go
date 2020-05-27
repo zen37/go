@@ -6,5 +6,5 @@ import (
 
 //this package only does this
 func Hello() {
-	fmt.Println("Hallo Welt! I'm a package.")
+	fmt.Println("Hello Worlsd \ Hallo Welt! I'm a package.")
 }
