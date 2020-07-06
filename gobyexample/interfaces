@@ -1,0 +1,51 @@
+https://play.golang.org/p/Pp6r9OYkxq5
+
+package main
+
+import (
+	"fmt"
+)
+
+type trust interface {
+	authorized()
+}
+
+type employee struct {
+	id   string
+	name string
+}
+
+type contractor struct {
+	id     string
+	name   string
+	vendor string
+}
+
+func (e employee) authorized() {
+
+	fmt.Println("employee is authorized")
+
+}
+
+func (c *contractor) authorized() {
+
+	fmt.Println("contractor is authorized")
+
+}
+
+func access(t trust) {
+	t.authorized()
+}
+
+func main() {
+
+	var pers employee
+	pers.name = "dave"
+
+	contr := contractor{"52435243-u", "jane", "ibm"}
+
+	access(pers)
+
+	access(&contr)
+
+}
